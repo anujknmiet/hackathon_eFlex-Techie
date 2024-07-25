@@ -1,0 +1,6 @@
+@BankRewardsPragramme_HostAddress = http://localhost:5020
+
+GET {{BankRewardsPragramme_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
