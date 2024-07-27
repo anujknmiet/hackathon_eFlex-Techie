@@ -1,0 +1,6 @@
+@FITAppProducerAPI_HostAddress = http://localhost:5170
+
+GET {{FITAppProducerAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
