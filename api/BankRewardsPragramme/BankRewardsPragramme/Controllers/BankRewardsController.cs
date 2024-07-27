@@ -15,10 +15,10 @@ namespace BankRewardsPragramme.Controllers
             _bankRewardsRepository = bankRewardsRepository;
         }
 
-        [HttpGet(Name = "GetWeather")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet(Name = "CustomerIdentity")]
+        public CustomerIdenity Get()
         {
-            return _bankRewardsRepository.WeatherForecast();
+            return _bankRewardsRepository.GetCustomerIdentity();
         }
     }
 }

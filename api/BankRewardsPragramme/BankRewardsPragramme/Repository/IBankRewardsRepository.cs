@@ -4,6 +4,6 @@ namespace BankRewardsPragramme.Repository
 {
     public interface IBankRewardsRepository
     {
-        public List<WeatherForecast> WeatherForecast();
+        public CustomerIdenity GetCustomerIdentity();
     }
 }
