@@ -28,5 +28,11 @@ namespace BankRewardsPragramme.Controllers
         {
             return _bankRewardsRepository.GetNatwestProducts();
         }
+
+        [HttpGet(Name = "RedeemRewards")]
+        public RedeemPointsResponse RedeemRewards(int customerId,int totalRewardPoints, int pointsToRedeem)
+        {
+            return _bankRewardsRepository.RedeemReward(customerId, totalRewardPoints, pointsToRedeem);
+        }
     }
 }

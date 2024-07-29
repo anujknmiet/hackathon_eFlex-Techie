@@ -70,6 +70,14 @@ namespace BankRewardsPragramme.Repository
             return root;
         }
 
+        public RedeemPointsResponse RedeemReward(int customerId, int totalRewardPoints, int pointsToRedeem)
+        {
+            RedeemPointsResponse redeemPointsResponse = new RedeemPointsResponse();
+            redeemPointsResponse.Message = "Points redeemed successfully.";
+            redeemPointsResponse.customerId = customerId;
+            redeemPointsResponse.remainingPoints = totalRewardPoints-pointsToRedeem;
+            return redeemPointsResponse;
+        }
         public string  GetToken()
         {
             string clientId = "tvdOA8m9egeiPo_WE2CsYoML3hMDTjERLVpkQerkApQ=";
