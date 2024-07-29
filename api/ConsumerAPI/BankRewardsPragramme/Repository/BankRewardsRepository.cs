@@ -8,11 +8,11 @@ using System.Web;
 
 namespace BankRewardsPragramme.Repository
 {
-    public class BankRewardsRepository:IBankRewardsRepository
+    public class BankRewardsRepository : IBankRewardsRepository
     {
         public CustomerIdenity GetCustomerIdentity()
         {
-            CustomerIdenity customerIdenity= new CustomerIdenity();
+            CustomerIdenity customerIdenity = new CustomerIdenity();
             string token = GetToken();
             string baseUrl = "https://ob.sandbox.natwest.com/zerocode/bankofapis.com/";
             using (var client = new HttpClient())
@@ -33,13 +33,41 @@ namespace BankRewardsPragramme.Repository
                     nameData.given_name = responseData.data.name.given_name;
                     nameData.middle_names = responseData.data.name.middle_names;
                     nameData.family_name = responseData.data.name.family_name;
-                    nameData.salutation=    responseData.data.name.salutation;
+                    nameData.salutation = responseData.data.name.salutation;
                     nameData.full_name = responseData.data.name.full_name;
                     customerIdenity.id = responseData.data.id;
                     customerIdenity.name = nameData;
                 }
             }
             return customerIdenity;
+        }
+
+        public Root GetNatwestProducts()
+        {
+            string token = GetToken();
+             dynamic responseData1 = null ;
+            Root root = new Root();
+            string baseUrl = "https://ob.sandbox.natwest.com/zerocode/globalopenfinancechallenge.com/";
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+                var retriveAsynctask = Task.Run(async () =>
+                {
+                    return await client.GetAsync("products/1.0.0/personal-current-accounts");
+                });
+                if (retriveAsynctask.Result.IsSuccessStatusCode)
+                {
+                    //dynamic responseData = JObject.Parse(retriveAsynctask.Result.Content.ReadAsStringAsync().Result);
+                    //root= JsonConvert.DeserializeObject<Root>(responseData);
+                    root = JsonConvert.DeserializeObject<Root>(retriveAsynctask.Result.Content.ReadAsStringAsync().Result);
+                }
+               
+                // var deserializeSourceData = JsonConvert.DeserializeObject<JObject>(responseData);
+            }
+            return root;
         }
 
         public string  GetToken()

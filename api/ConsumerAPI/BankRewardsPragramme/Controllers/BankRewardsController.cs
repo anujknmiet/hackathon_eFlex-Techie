@@ -1,12 +1,14 @@
 ﻿using BankRewardsPragramme.Model;
 using BankRewardsPragramme.Repository;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankRewardsPragramme.Controllers
 {
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
+    //[EnableCors]
     public class BankRewardsController : ControllerBase
     {
         private readonly IBankRewardsRepository _bankRewardsRepository;
@@ -19,6 +21,12 @@ namespace BankRewardsPragramme.Controllers
         public CustomerIdenity Get()
         {
             return _bankRewardsRepository.GetCustomerIdentity();
+        }
+
+        [HttpGet(Name = "Products")]
+        public Root GetProducts()
+        {
+            return _bankRewardsRepository.GetNatwestProducts();
         }
     }
 }
