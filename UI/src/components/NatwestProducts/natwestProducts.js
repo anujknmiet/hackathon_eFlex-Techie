@@ -58,7 +58,7 @@ const NatwestProducts = () => {
           lg={6}
           style={{
             textAlign: "center",
-            font: "3rem Fira Sans, sans-serif",
+            font: "2rem Fira Sans, sans-serif",
             backgroundColor: "purple",
           }}
         >

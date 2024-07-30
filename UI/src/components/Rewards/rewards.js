@@ -78,7 +78,7 @@ const Rewards = ({
           lg={6}
           className="text-center"
           style={{
-            font: "3rem Fira Sans, sans-serif",
+            font: "2rem Fira Sans, sans-serif",
             backgroundColor: "purple",
           }}
         >
@@ -93,7 +93,7 @@ const Rewards = ({
         </Col>
       </Row>
       <Row>
-        <Col className="d-flex justify-content-center">
+        <Col className="d-flex justify-content-center mb-4">
           <Card
             className="text-center"
             style={{
@@ -120,7 +120,7 @@ const Rewards = ({
             </Card.Body>
           </Card>
         </Col>
-        <Col className="d-flex justify-content-center">
+        <Col className="d-flex justify-content-center mb-4">
           <Card
             className="text-center"
             style={{
@@ -147,7 +147,7 @@ const Rewards = ({
             </Card.Body>
           </Card>
         </Col>
-        <Col className="d-flex justify-content-center">
+        <Col className="d-flex justify-content-center mb-4">
           <Card
             className="text-center"
             style={{
@@ -173,7 +173,7 @@ const Rewards = ({
             </Card.Body>
           </Card>
         </Col>
-        <Col className="d-flex justify-content-center">
+        <Col className="d-flex justify-content-center mb-4">
           <Card
             className="text-center"
             style={{
