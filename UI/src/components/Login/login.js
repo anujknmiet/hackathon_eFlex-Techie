@@ -9,8 +9,14 @@ import Loader from "../loader";
 // import { useAuth } from "../../Auth/auth";
 import NatwestLogo from "../../img/Natwest_logo.jfif";
 
-export default function Login() {
+export default function Login({
+  fitnessPoints,
+  setFitnessPoints,
+  rewardPoints,
+  setRewardPoints,
+}) {
   const navigate = useNavigate();
+  console.log(fitnessPoints);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -30,10 +36,11 @@ export default function Login() {
       const rewardsData = await hackathonService.getRewards(
         12234,
         23456,
-        1600,
+        fitnessPoints,
         5455
       );
       console.log(rewardsData);
+      setRewardPoints(rewardsData.rewardPoints);
       navigate("/rewards", { state: { rewardsData } });
     } catch (error) {
       console.log(error);

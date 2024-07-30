@@ -8,3 +8,10 @@
   height: 100%; /* Ensure the image takes up the full height of the container */
   object-fit: cover; /* Cover the container while maintaining aspect ratio */
 }
+
+.progress-button {
+  background-color: #fc5200 !important;
+  font-size: 0.8rem; /* Adjust font size for smaller buttons */
+  padding: 0.375rem 0.75rem; /* Adjust padding for smaller buttons */
+  border-radius: 0.2rem; /* Optional: adjust border radius */
+}

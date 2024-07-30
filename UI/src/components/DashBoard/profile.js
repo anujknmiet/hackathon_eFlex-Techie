@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import Row from "react-bootstrap/Row";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
@@ -7,8 +8,9 @@ import gold from "../../img/gold medal.png";
 import silver from "../../img/silver-medal.png";
 import bronze from "../../img/bronze medal.png";
 import { useNavigate } from "react-router-dom";
+import NatwestLogo from "../../img/Natwest_logo.jfif";
 import "../../CSS/profile.css";
-function Profile() {
+function Profile({ fitnessPoints }) {
   const navigate = useNavigate();
   const goToRewards = () => {
     navigate("/rewards");
@@ -16,9 +18,9 @@ function Profile() {
   return (
     <>
       <Row className="justify-content-center">
-        <Col className="offset-1">
+        <Col>
           <Card
-            className="text-center mx-auto"
+            className="text-center myCard"
             style={{
               width: "22rem",
               backgroundColor: "#F5F5F5",
@@ -52,7 +54,7 @@ function Profile() {
                 <Row style={{ marginBottom: "2rem" }}>
                   <Col>
                     <div style={{ fontSize: "1.4rem", color: "#FC5200" }}>
-                      1555 pts
+                      {fitnessPoints} pts
                     </div>
                   </Col>
                 </Row>
@@ -61,11 +63,7 @@ function Profile() {
                   <Col style={{ color: "#FC5200" }}>Cycling</Col>
                   <Col style={{ color: "#FC5200" }}>Swimming</Col>
                 </Row>
-                <Row>
-                  <Col style={{ color: "#FC5200" }}>510 pts</Col>
-                  <Col style={{ color: "#FC5200" }}>610 pts</Col>
-                  <Col style={{ color: "#FC5200" }}>435 pts</Col>
-                </Row>
+
                 <Row>
                   <Col>
                     <div className="medalContainer">
@@ -86,21 +84,40 @@ function Profile() {
               </Card.Text>
             </Card.Body>
           </Card>
-          <div style={{ textAlign: "center" }}>
+          <div
+            style={{
+              textAlign: "center",
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "2.5rem",
+            }}
+          >
+            <div className="logoContainer" style={{ paddingRight: "0.5rem" }}>
+              <img src={NatwestLogo} alt="" />
+            </div>
             <Button
               style={{
                 backgroundColor: "purple",
-                marginBottom: "2rem",
+                borderColor: "purple",
               }}
               onClick={goToRewards}
+              size="lg"
             >
-              Reward
+              Natwest Rewards
             </Button>
           </div>
-        </Col>
-        <Col>
-          <div className="imgContainer">
-            <img src={trophy} alt="Trophy" className="img-fluid" />
+          <div
+            className="natwestProducts"
+            style={{ textAlign: "center", paddingTop: "1rem" }}
+          >
+            <a
+              style={{ color: "purple", cursor: "pointer" }}
+              onClick={() => {
+                navigate("/products");
+              }}
+            >
+              Explore Natwest products
+            </a>
           </div>
         </Col>
       </Row>

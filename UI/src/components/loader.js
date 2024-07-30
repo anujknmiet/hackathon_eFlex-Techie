@@ -8,7 +8,7 @@ function Loader({ loading }) {
         className="sweet-loading"
         style={{
           display: "flex",
-          flexDirection: "column", // Stack spinner and text vertically
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           height: "100vh",
@@ -16,7 +16,7 @@ function Loader({ loading }) {
           top: 0,
           left: 0,
           width: "100%",
-          backgroundColor: "rgba(255, 255, 255, 0.8)", // Optional: to make a semi-transparent background
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
         }}
       >
         <ClipLoader

@@ -1,22 +1,28 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const goToDashBoard = () => {
+    navigate("/");
+  };
   return (
     <Navbar expand="md" className="themecolor" bg="dark" data-bs-theme="dark">
-      <Container fluid>
-        <Navbar.Brand href="#home">Navbar with text</Navbar.Brand>
+      <Container>
+        <Navbar.Brand style={{ color: "#FC5200" }}>FitApp</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Nav className="mx-auto">
-            <Navbar.Text style={{ color: "#FC5200" }}>Fitness App</Navbar.Text>
-          </Nav>
-          <Nav className="ms-5 me-5">
-            <Nav.Link href="#home" style={{ color: "#FC5200" }}>
-              Login
-            </Nav.Link>
-          </Nav>
+          <Nav.Link
+            className="mx-auto"
+            onClick={goToDashBoard}
+            style={{ color: "#FC5200", marginLeft: "45%!important" }}
+          >
+            Home
+          </Nav.Link>
         </Navbar.Collapse>
       </Container>
     </Navbar>

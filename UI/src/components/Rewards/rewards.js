@@ -1,41 +1,95 @@
-import Header from "../header";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
-import CardGroup from "react-bootstrap/CardGroup";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const Rewards = () => {
+import Header from "../header";
+import Footer from "../footer";
+import hackathonService from "../../services/hackathon.service";
+
+const Rewards = ({
+  fitnessPoints,
+  setFitnessPoints,
+  rewardPoints,
+  setRewardPoints,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { rewardsData } = location.state || null;
-  const { athleteId, customerId, rewardPoints } = rewardsData;
+  const state = location.state || null;
+
+  const [showModal, setShowModal] = useState(false);
+  const [redeemPoints, setRedeemPoints] = useState();
+  console.log(fitnessPoints);
   useEffect(() => {
-    if (rewardsData) {
-      window.alert(`Rewards earned!!!${rewardPoints}`);
+    if (state?.rewardsData) {
+      toast.success(`Rewards earned!!!${state?.rewardsData.rewardPoints}`);
     }
-  }, []);
+  }, [state?.rewardsData]);
+
   useEffect(() => {
-    if (rewardsData) {
-      toast.success(`Rewards earned: ${rewardPoints}`);
-    }
-  }, [rewardsData]);
+    window.scrollTo(0, 0);
+  }, [location]);
 
   const gotToLogin = () => {
     navigate("/login");
   };
+  const handleInputChange = (e) => {
+    if (Number(e.target.value) > rewardPoints) {
+      window.alert("Redeem points must be less than reward points");
+    } else setRedeemPoints(e.target.value);
+  };
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleRedeemRewards = async () => {
+    try {
+      const rewardsObject = await hackathonService.redeemRewards(
+        12234,
+        rewardPoints,
+        redeemPoints
+      );
+      handleCloseModal();
+      setRewardPoints(rewardPoints - redeemPoints);
+      toast.success(rewardsObject.message);
+      console.log(rewardsObject);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setRedeemPoints();
+    }
+  };
+
   return (
     <>
       <Header />
-      {/* <ToastContainer /> */}
+      <ToastContainer />
       <Row className="justify-content-center mt-4 mb-4">
         <Col
           lg={6}
-          style={{ textAlign: "center", font: "3rem Fira Sans, sans-serif" }}
+          className="text-center"
+          style={{
+            font: "3rem Fira Sans, sans-serif",
+            backgroundColor: "purple",
+          }}
         >
-          My Rewards
+          <span style={{ color: "white" }}>Natwest Rewards</span>
+        </Col>
+      </Row>
+      <Row style={{ textAlign: "center" }}>
+        <Col>
+          <div style={{ color: "purple", fontSize: "1.4rem" }}>
+            <strong>Reward Points:{rewardPoints}</strong>
+          </div>
         </Col>
       </Row>
       <Row>
@@ -48,12 +102,21 @@ const Rewards = () => {
             }}
           >
             <Card.Body>
-              <Card.Title>Earn rewards With Strava Awards</Card.Title>
+              <Card.Title>Earn rewards With FitApp Points</Card.Title>
               <Card.Text>
                 Some quick example text to build on the card title and make up
                 the bulk of the card's content.
               </Card.Text>
-              <Card.Link onClick={gotToLogin}>Cash Your Rewards</Card.Link>
+              <Button
+                style={{
+                  backgroundColor: "purple",
+                  borderColor: "purple",
+                }}
+                size="lg"
+                onClick={gotToLogin}
+              >
+                Get Your NW Rewards
+              </Button>
             </Card.Body>
           </Card>
         </Col>
@@ -66,13 +129,21 @@ const Rewards = () => {
             }}
           >
             <Card.Body>
-              <Card.Title>Redeem Rewards</Card.Title>
+              <Card.Title>Transfer to Reward Account</Card.Title>
               <Card.Text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content. make up the bulk of the card's
-                content.
+                The NatWest Reward bank account is similar to a cashback bank
+                account – but it's a bit more flexible.
               </Card.Text>
-              <Card.Link href="#">Redeem</Card.Link>
+              <Button
+                style={{
+                  backgroundColor: "purple",
+                  borderColor: "purple",
+                }}
+                size="lg"
+                onClick={handleOpenModal}
+              >
+                Convert
+              </Button>
             </Card.Body>
           </Card>
         </Col>
@@ -85,12 +156,20 @@ const Rewards = () => {
             }}
           >
             <Card.Body>
-              <Card.Title>Buy discounted Strava subscription</Card.Title>
+              <Card.Title>Buy discounted FitApp subscription</Card.Title>
               <Card.Text>
                 Some quick example text to build on the card title and make up
                 the bulk of the card's content.
               </Card.Text>
-              <Card.Link href="#">Buy</Card.Link>
+              <Button
+                style={{
+                  backgroundColor: "purple",
+                  borderColor: "purple",
+                }}
+                size="lg"
+              >
+                Buy
+              </Button>
             </Card.Body>
           </Card>
         </Col>
@@ -103,17 +182,68 @@ const Rewards = () => {
             }}
           >
             <Card.Body>
-              <Card.Title>BYPL available with Strava Partners</Card.Title>
+              <Card.Title>BNPL available with FitApp Partners</Card.Title>
               <Card.Text>
                 Some quick example text to build on the card title and make up
                 the bulk of the card's content.
               </Card.Text>
-              <Card.Link href="#">Buy</Card.Link>
+              <Button
+                style={{
+                  backgroundColor: "purple",
+                  borderColor: "purple",
+                }}
+                size="lg"
+              >
+                Buy
+              </Button>
             </Card.Body>
           </Card>
         </Col>
       </Row>
+      <Footer />
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title style={{ color: "purple" }}>Convert Rewards</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Enter the points that you want to convert to Natwest Rewards:</p>
+          <div className="inputContainer">
+            <input
+              type="text"
+              className="form-control"
+              id="RedeemPoints"
+              placeholder="Enter the points in the Multiple of 100's"
+              value={redeemPoints}
+              onChange={(e) => handleInputChange(e)}
+              required
+            />
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            style={{
+              backgroundColor: "purple",
+              borderColor: "purple",
+              color: "white",
+            }}
+            onClick={handleCloseModal}
+          >
+            Close
+          </Button>
+          <Button
+            style={{
+              backgroundColor: "purple",
+              borderColor: "purple",
+              color: "white",
+            }}
+            onClick={handleRedeemRewards}
+          >
+            Convert
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
+
 export default Rewards;

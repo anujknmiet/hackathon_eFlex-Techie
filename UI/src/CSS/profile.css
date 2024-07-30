@@ -4,6 +4,9 @@
   align-items: center;
   height: 100%;
 }
+.myCard {
+  margin-left: -2rem !important;
+}
 
 .imgContainer img {
   max-width: 100%;
