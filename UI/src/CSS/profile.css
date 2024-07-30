@@ -1,0 +1,19 @@
+.imgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.myCard {
+  margin-left: -2rem !important;
+}
+
+.imgContainer img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.medalContainer img {
+  max-width: 100%;
+  height: auto;
+}

@@ -1,0 +1,21 @@
+/* Custom styles for mobile */
+@media (max-width: 576px) {
+  .container-fluid {
+    padding: 1rem;
+  }
+
+  .mt-5 {
+    margin-top: 2rem !important;
+  }
+}
+
+/* Custom styles for tablets and above */
+@media (min-width: 577px) {
+  .container-fluid {
+    padding: 2rem;
+  }
+
+  .mt-5 {
+    margin-top: 3rem !important;
+  }
+}
