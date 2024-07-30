@@ -1,4 +1,4 @@
-﻿namespace FITAppProducerAPI.Model
+﻿namespace BankRewardsPragramme.Model
 {
     public class CustomerReward
     {
