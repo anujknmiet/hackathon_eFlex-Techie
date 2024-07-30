@@ -60,12 +60,9 @@ namespace BankRewardsPragramme.Repository
                 });
                 if (retriveAsynctask.Result.IsSuccessStatusCode)
                 {
-                    //dynamic responseData = JObject.Parse(retriveAsynctask.Result.Content.ReadAsStringAsync().Result);
-                    //root= JsonConvert.DeserializeObject<Root>(responseData);
                     root = JsonConvert.DeserializeObject<Root>(retriveAsynctask.Result.Content.ReadAsStringAsync().Result);
                 }
                
-                // var deserializeSourceData = JsonConvert.DeserializeObject<JObject>(responseData);
             }
             return root;
         }
@@ -77,6 +74,17 @@ namespace BankRewardsPragramme.Repository
             redeemPointsResponse.customerId = customerId;
             redeemPointsResponse.remainingPoints = totalRewardPoints-pointsToRedeem;
             return redeemPointsResponse;
+        }
+
+        public CustomerReward GeRewards(int customerId, int athleteId, int fitnessPoints, int clientId)
+        {
+            double NWRewardRate = 0.10;
+            double rewards = fitnessPoints * NWRewardRate;
+            CustomerReward customerReward = new CustomerReward();
+            customerReward.athleteId = athleteId;
+            customerReward.customerId = customerId;
+            customerReward.rewardPoints = rewards;
+            return customerReward;
         }
         public string  GetToken()
         {

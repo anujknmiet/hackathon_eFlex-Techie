@@ -9,5 +9,7 @@ namespace BankRewardsPragramme.Repository
         public Root GetNatwestProducts();
 
         public RedeemPointsResponse RedeemReward(int customerId, int totalRewardPoints, int pointsToRedeem);
+
+        public CustomerReward GeRewards(int customerId, int athleteId, int fitnessPoints, int clientId);
     }
 }
